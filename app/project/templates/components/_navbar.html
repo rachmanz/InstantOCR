@@ -1,0 +1,28 @@
+{% load static %}
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <div class="nav-container">
+    <a href="{% url 'home' %}" class="logo">
+      <img src="{% static 'img/logo-brand.png' %}" alt="Logo INSTANT-OCR" width="175" />
+    </a>
+
+    <!-- Menu Desktop -->
+    <ul class="nav-links">
+      <li><a href="#features">Fitur</a></li>
+      <li><a href="#how-it-works">Cara Kerja</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <!-- Tombol Hamburger (Mobile) -->
+    <button type="button" class="mobile-menu" aria-label="Toggle Menu">
+      <i class="ri-menu-4-line"></i>
+    </button>
+  </div>
+
+  <!-- Container Dropdown Menu Mobile -->
+  <div class="mobile-nav">
+    <a href="#features">Fitur</a>
+    <a href="#how-it-works">Cara Kerja</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</header>
