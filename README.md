@@ -6,8 +6,6 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Django](https://img.shields.io/badge/Django-4.2+-092E20?style=for-the-badge&logo=django&logoColor=white)](https://djangoproject.com)
-[![License](https://img.shields.io/badge/License-MIT-blue.style=for-the-badge)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Active-brightgreen.style=for-the-badge)]()
 
 _InstantOCR is a powerful web-based application designed to extract text from images and PDF documents seamlessly, exporting them into multiple editable formats._
 
@@ -38,22 +36,3 @@ _InstantOCR is a powerful web-based application designed to extract text from im
 - **Frontend:** HTML5, CSS3 (Modern Glassmorphism & Flex/Grid), Vanilla JavaScript (ES6+)
 - **Animation & FX:** GSAP (GreenSock), ScrollTrigger, Remix Icons
 - **OCR Engine:** Tesseract OCR / EasyOCR (Django Integration)
-
----
-
-## 🚀 Getting Started
-
-Follow these instructions to get a local copy up and running for development and testing.
-
-### Prerequisites (Temp.)
-
-- [Python 3.10+](https://www.python.org/downloads/)
-- [Tesseract OCR Engine](https://github.com/tesseract-ocr/tesseract) installed on your system.
-
-### Installation
-
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/rachmanz/InstantOCR.git
-   cd InstantOCR
-   ```
