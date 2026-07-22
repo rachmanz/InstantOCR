@@ -1,14 +1,433 @@
+{% load static %}
 <!doctype html>
-<html>
+<html lang="en">
   <head>
-    <title>Upload OCR</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>INSTANT-OCR | HOMEPAGE</title>
+
+    <meta name="description" content="Convert images into editable TXT, PDF, Word, Excel, CSV and JSON using AI OCR." />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Remix Icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
+
   <body>
-    <h1>Upload Image for OCR</h1>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <input type="file" name="image" required />
-      <button type="submit">Upload</button>
-    </form>
+    <!-- ================= BACKGROUND ================= -->
+    <div class="background">
+      <div class="blob blob-one"></div>
+      <div class="blob blob-two"></div>
+      <div class="blob blob-three"></div>
+    </div>
+
+    <!-- ================= NAVBAR ================= -->
+    <header>
+      <nav class="navbar">
+        <div class="container">
+          <a href="#hero" class="logo">
+            {% load static %}
+            <img src="{% static 'img/logo-brand.png' %}" alt="Logo Brand" width="175" />
+          </a>
+
+          <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#formats">Formats</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+
+          <button class="mobile-menu">
+            <i class="ri-menu-4-line"></i>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <!-- ================= HERO ================= -->
+      <section class="hero">
+        <div class="container hero-grid" id="hero">
+          <!-- LEFT -->
+          <div class="hero-content">
+            <span class="badge"> AI OCR PLATFORM </span>
+
+            <h1 class="hero-title">Turn <span>Images</span> Into Editable Documents</h1>
+
+            <p class="hero-description">Upload any image and instantly convert it into editable TXT, DOCX, PDF, CSV, XLSX or JSON using AI-powered Optical Character Recognition.</p>
+
+            <div class="hero-buttons">
+              <a href="#upload" class="btn-primary">Start Free </a>
+              <a href="#features" class="btn-secondary"> Learn More </a>
+            </div>
+
+            <!-- Statistics -->
+            <div class="mini-stats">
+              <div>
+                <h2>99.2%</h2>
+                <p>Accuracy</p>
+              </div>
+              <div>
+                <h2>100+</h2>
+                <p>Languages</p>
+              </div>
+              <div>
+                <h2>12M+</h2>
+                <p>Processed</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="upload-wrapper" id="upload">
+            <div class="upload-card">
+              <div class="upload-header">
+                <h3>Upload Document</h3>
+                <p>Drag & Drop your image</p>
+              </div>
+
+              <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Upload -->
+                <label class="upload-area">
+                  <input type="file" name="image" id="imageInput" hidden />
+
+                  <div id="previewContainer">
+                    <i class="ri-image-add-line"></i>
+                    <h4>Drop Image Here</h4>
+                    <span> PNG • JPG • JPEG • WEBP </span>
+                  </div>
+                </label>
+
+                <!-- Progress -->
+                <div class="progress-wrapper">
+                  <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                  </div>
+                </div>
+
+                <!-- FORMAT -->
+                <div class="format-title">Export Format</div>
+
+                <div class="format-grid">
+                  <label>
+                    <input type="radio" name="format" value="txt" checked />
+                    <span>TXT</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="format" value="pdf" />
+                    <span>PDF</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="format" value="docx" />
+                    <span>DOCX</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="format" value="xlsx" />
+                    <span>XLSX</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="format" value="csv" />
+                    <span>CSV</span>
+                  </label>
+
+                  <label>
+                    <input type="radio" name="format" value="json" />
+                    <span>JSON</span>
+                  </label>
+                </div>
+
+                <!-- BUTTON -->
+                <button type="submit" class="convert-btn">
+                  <i class="ri-magic-line"></i>
+                  Convert Now
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= STATISTICS ================= -->
+      <section class="statistics">
+        <div class="container">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="ri-file-list-3-line"></i>
+            </div>
+            <h2 class="counter" data-target="12000000">0</h2>
+            <p>Files Processed</p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="ri-global-line"></i>
+            </div>
+            <h2 class="counter" data-target="100">0</h2>
+            <p>Languages Supported</p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="ri-shield-check-line"></i>
+            </div>
+            <h2>99.2%</h2>
+            <p>OCR Accuracy</p>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="ri-time-line"></i>
+            </div>
+            <h2>2s</h2>
+            <p>Average Process</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FEATURES ================= -->
+      <section class="features" id="features">
+        <div class="container">
+          <div class="section-heading">
+            <span> WHY INSTANT-OCR </span>
+            <h2>Built for Speed, Accuracy and Simplicity</h2>
+            <p>Everything you need to transform scanned images into editable files.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-flashlight-line"></i>
+              </div>
+              <h3>Lightning Fast</h3>
+              <p>Convert images into editable text in only a few seconds.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-ai-generate"></i>
+              </div>
+              <h3>AI Recognition</h3>
+              <p>High precision OCR powered by modern machine learning.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-file-copy-2-line"></i>
+              </div>
+              <h3>Multiple Export</h3>
+              <p>Export into TXT, DOCX, PDF, XLSX, CSV or JSON.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-lock-line"></i>
+              </div>
+              <h3>Privacy First</h3>
+              <p>Uploaded files are processed securely and never shared.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-image-line"></i>
+              </div>
+              <h3>Image Enhancement</h3>
+              <p>Automatically improve readability before OCR extraction.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="feature-icon">
+                <i class="ri-cloud-line"></i>
+              </div>
+              <h3>Cloud Processing</h3>
+              <p>No installation required. Everything runs directly from your browser.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= HOW IT WORKS ================= -->
+      <section class="workflow">
+        <div class="container">
+          <div class="section-heading">
+            <span> SIMPLE PROCESS </span>
+            <h2>Convert Documents in Three Easy Steps</h2>
+          </div>
+
+          <div class="workflow-grid">
+            <div class="step">
+              <div class="step-number">01</div>
+              <h3>Upload</h3>
+              <p>Select or drag your image into the upload area.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">02</div>
+              <h3>Choose Format</h3>
+              <p>Pick TXT, DOCX, PDF, CSV, JSON or Excel.</p>
+            </div>
+
+            <div class="step">
+              <div class="step-number">03</div>
+              <h3>Download</h3>
+              <p>Receive your converted editable document instantly.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SUPPORTED FORMAT ================= -->
+      <section class="formats" id="formats">
+        <div class="container">
+          <div class="section-heading">
+            <span> SUPPORTED FILES </span>
+            <h2>Export Into Popular Formats</h2>
+          </div>
+
+          <div class="format-list">
+            <div class="format-item">TXT</div>
+            <div class="format-item">DOCX</div>
+            <div class="format-item">PDF</div>
+            <div class="format-item">CSV</div>
+            <div class="format-item">XLSX</div>
+            <div class="format-item">JSON</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="faq" id="faq">
+        <div class="container">
+          <div class="section-heading">
+            <span> FREQUENTLY ASKED QUESTIONS </span>
+            <h2>Questions? We've Got Answers.</h2>
+            <p>Everything you need to know about OCR Vision.</p>
+          </div>
+
+          <div class="faq-wrapper">
+            <div class="faq-item active">
+              <button class="faq-question">
+                What file types can I upload?
+                <i class="ri-add-line"></i>
+              </button>
+              <div class="faq-answer">
+                <p>OCR Vision currently supports PNG, JPG, JPEG and WEBP images. More formats will be available in future releases.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Is my uploaded file secure?
+                <i class="ri-add-line"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Yes. Your uploaded files are processed securely and are never permanently stored on our servers.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Can I export to Microsoft Excel?
+                <i class="ri-add-line"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Absolutely. OCR Vision supports TXT, DOCX, PDF, CSV, XLSX and JSON exports.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">
+                Is OCR Vision free?
+                <i class="ri-add-line"></i>
+              </button>
+              <div class="faq-answer">
+                <p>Yes. The basic OCR conversion service is free for everyone.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta">
+        <div class="container">
+          <div class="cta-box">
+            <span> START TODAY </span>
+            <h2>Convert Your Images Into Editable Documents</h2>
+            <p>Experience AI-powered OCR with lightning-fast processing and export to multiple formats.</p>
+            <a href="#upload" class="cta-button">
+              <i class="ri-upload-cloud-2-line"></i>
+              Upload Image
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <div class="logo">
+            {% load static %}
+            <img src="{% static 'img/logo-brand.png'%}" alt="INSTANT-OCR" class="footer-logo-img" width="175" />
+          </div>
+          <p>AI-powered Optical Character Recognition for modern document processing.</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Product</h4>
+          <a href="#">Features</a>
+          <a href="#">OCR API</a>
+          <a href="#">Export</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+          <!-- <a href="#">Careers</a> -->
+        </div>
+
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <!-- <a href="#">Documentation</a> -->
+          <a href="#">Support</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p>&copy; 2026 INSTANT-OCR. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+
+    <!-- APP -->
+    <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>
