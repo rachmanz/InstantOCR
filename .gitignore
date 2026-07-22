@@ -7,6 +7,9 @@ __init__.py
 # C extensions
 *.so
 
+# VSCode
+.vscode
+
 # Distribution / packaging
 .Python
 build/
