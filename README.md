@@ -5,7 +5,10 @@
 **Transform Images & Documents into Editable Files in Seconds.**
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![PyPI](https://img.shields.io/badge/PyPI-3775A9?style=for-the-badge&logo=pypi&logoColor=white)](https://pypi.org)
 [![Django](https://img.shields.io/badge/Django-4.2+-092E20?style=for-the-badge&logo=django&logoColor=white)](https://djangoproject.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co)
 
 _InstantOCR is a powerful web-based application designed to extract text from images and PDF documents seamlessly, exporting them into multiple editable formats._
 
@@ -32,7 +35,11 @@ _InstantOCR is a powerful web-based application designed to extract text from im
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Python 3.10+, Django Framework
+- **Backend:** Python 3.10+, Django Framework, FastAPI
 - **Frontend:** HTML5, CSS3 (Modern Glassmorphism & Flex/Grid), Vanilla JavaScript (ES6+)
 - **Animation & FX:** GSAP (GreenSock), ScrollTrigger, Remix Icons
-- **OCR Engine:** Tesseract OCR / EasyOCR (Django Integration)
+- **OCR Engine:** EasyOCR (Django Integration) & HuggingFace Model (**Premium**)
+
+---
+
+**`Note`** : Application is under development
