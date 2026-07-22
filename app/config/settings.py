@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'project',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'project'
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -109,10 +109,16 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '../../public/'
+STATIC_URL = '/static/'
+
+# STATIC_ROOT = BASE_DIR / 'staticfiles'

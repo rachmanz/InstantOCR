@@ -18,8 +18,9 @@ from django.contrib import admin
 from django.urls import path
 from project import views
 
+# Routing 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', views.upload_image, name="upload"), 
-    path('', views.upload_image, name="home")
+    path('', views.upload_image, name="home"),
+    path('upload/', views.upload_image, name="upload")
 ]
