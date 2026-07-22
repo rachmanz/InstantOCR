@@ -11,12 +11,12 @@ def upload_image(request):
         img = request.FILES['image']
         obj = UploadedImage.objects.create(image=img)
         return JsonResponse({"status": "success", "id": obj.id})
-    return render(request, 'upload.html')
+    return render(request, 'index.html')
 
 # Index View Request 
 def index(request):
     """Menampilkan halaman HTML utama"""
-    return render(request, 'upload.html')
+    return render(request, 'index.html')
 
 # OCR Process
 @csrf_exempt
