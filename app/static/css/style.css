@@ -16,11 +16,14 @@
   --white: #ffffff;
   --background: #f8fafc;
   --border: #e2e8f0;
-  --glass: rgba(255, 255, 255, 0.75);
+  --glass-bg: rgba(255, 255, 255, 0.75);
   --glass-border: rgba(255, 255, 255, 0.5);
   --shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
   --shadow-hover: 0 20px 60px rgba(37, 99, 235, 0.15);
   --radius: 28px;
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
 }
 
 /* ===========================
@@ -38,11 +41,18 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 body {
   font-family: "Inter", sans-serif;
   background-color: var(--background);
   color: var(--text);
-  overflow-x: hidden;
   line-height: 1.7;
 }
 
@@ -140,79 +150,141 @@ section {
 }
 
 /* ===========================
-   NAVBAR
+   NAVBAR & NAVIGATION
 =========================== */
 .navbar {
   position: fixed;
-  top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(1180px, 95%);
-  z-index: 999;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  box-shadow: var(--shadow);
-  transition: all 0.35s ease;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  background: transparent;
+  transition: all 0.3s ease;
 }
 
 .navbar.navbar-scroll {
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--glass-border);
+  height: 70px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
-.navbar .container {
+.nav-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 14px 28px;
+  justify-content: space-between;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--dark);
-  font-size: 1.15rem;
-}
-
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  text-decoration: none;
+  letter-spacing: -0.5px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: white;
-  font-size: 20px;
+  gap: 8px;
 }
 
+.logo span {
+  color: var(--primary);
+}
+
+.logo i {
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+/* Desktop Links */
 .nav-links {
   display: flex;
-  gap: 36px;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
 }
 
 .nav-links a {
+  text-decoration: none;
   color: var(--paragraph);
   font-weight: 600;
-  transition: color 0.3s ease;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: var(--primary);
 }
 
+/* Hamburger Button (Mobile) */
 .mobile-menu {
   display: none;
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 28px;
   color: var(--dark);
   cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.mobile-menu:hover {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--primary);
+}
+
+/* Mobile Dropdown Menu */
+.mobile-nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 999;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-15px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mobile-nav a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.mobile-nav a:hover {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary);
+  padding-left: 20px;
 }
 
 /* ===========================
@@ -230,6 +302,7 @@ section {
   grid-template-columns: 1.15fr 0.85fr;
   gap: 60px;
   align-items: center;
+  width: 100%;
 }
 
 .badge {
@@ -338,133 +411,149 @@ section {
 .upload-wrapper {
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .upload-card {
   width: 100%;
-  max-width: 450px;
-  background: rgba(255, 255, 255, 0.85);
+  max-width: 480px; /* Lebar maksimal di desktop */
+  background: var(--glass-bg);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid var(--glass-border);
-  border-radius: 32px;
+  border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: var(--shadow);
+  margin: 0 auto;
+  box-sizing: border-box;
   transition:
     transform 0.4s ease,
     box-shadow 0.4s ease;
 }
 
 .upload-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-hover);
 }
 
 .upload-header {
   margin-bottom: 20px;
+  text-align: left;
 }
 
 .upload-header h3 {
-  font-size: 1.4rem;
+  font-size: 1.35rem;
   color: var(--dark);
   font-weight: 800;
 }
 
 .upload-header p {
   color: var(--paragraph);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
 }
 
 .upload-area {
-  position: relative; /* Penting untuk posisi tombol X */
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 100%;
-  min-height: 200px;
+  min-height: 220px;
   border: 2px dashed #bfdbfe;
-  border-radius: 24px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.35s ease;
-  background: rgba(255, 255, 255, 0.5);
-  padding: 20px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 24px;
 }
 
 .upload-area:hover,
 .upload-area.drag {
   border-color: var(--primary);
-  background: #eff6ff;
+  background: rgba(219, 234, 254, 0.5);
 }
 
-/* Container utama di dalam area upload */
+/* Container Elemen di Dalam Upload Area */
 #previewContainer {
   text-align: center;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
 }
 
-#previewContainer i {
-  font-size: 52px;
-  color: var(--primary);
-  margin-bottom: 6px;
+#uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-#previewContainer h4 {
-  font-size: 1.1rem;
+#uploadPlaceholder i {
+  font-size: 48px;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+#uploadPlaceholder h4 {
+  font-size: 1.05rem;
   color: var(--dark);
   font-weight: 700;
-  margin: 0;
 }
 
-#previewContainer span {
+#uploadPlaceholder span {
   display: block;
   color: var(--paragraph);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 #previewImage {
   width: 100%;
-  max-height: 160px;
+  max-height: 180px;
   object-fit: contain;
-  border-radius: 16px;
-  margin-bottom: 10px;
+  border-radius: var(--radius-sm);
 }
 
 .fileInfo {
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 0.85rem;
   color: var(--paragraph);
+  font-weight: 600;
+  word-break: break-all;
 }
 
-/* Tombol Hapus (X) */
+/* Tombol Hapus X (Floating Absolute Top Right) */
 .remove-btn {
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.12);
   color: #ef4444;
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   transition: all 0.2s ease;
   z-index: 10;
 }
 
 .remove-btn:hover {
   background: #ef4444;
-  color: #ffffff;
-  transform: scale(1.1);
+  color: var(--white);
+  transform: scale(1.1) rotate(90deg);
 }
 
 /* ===========================
@@ -736,7 +825,7 @@ section {
 }
 
 .faq-item.active .faq-answer {
-  max-height: 500px; /* Diperbesar agar teks panjang tidak terpotong */
+  max-height: 500px;
   transition: max-height 0.4s cubic-bezier(1, 0, 1, 0);
 }
 
@@ -813,7 +902,7 @@ section {
 }
 
 /* ===========================
-   FOOTER
+   FOOTER (SUPPORT REMIXICON & IMAGE)
 =========================== */
 footer {
   background: #0f172a;
@@ -835,6 +924,7 @@ footer {
   font-size: 0.95rem;
 }
 
+/* Support Logo Bawah berupa Gambar maupun RemixIcon */
 .footer-logo-img {
   max-width: 175px;
   width: 100%;
@@ -844,6 +934,10 @@ footer {
 
 .footer-brand .logo {
   color: white;
+}
+
+.footer-brand .logo i {
+  color: var(--secondary);
 }
 
 .footer-column h4 {
@@ -861,6 +955,9 @@ footer {
   margin-bottom: 12px;
   font-size: 0.95rem;
   transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .footer-column a:hover {
@@ -891,121 +988,213 @@ footer {
   border-radius: 999px;
 }
 
-/* ===========================
-   RESPONSIVE DESIGN
-=========================== */
+/* ============================================================
+   RESPONSIVE DESIGN (FIXED FOR IPHONE & MOBILE)
+============================================================ */
+
+/* Container Safe Area Padding untuk Semua Layar */
+.container {
+  width: min(1180px, 90%);
+  margin: 0 auto;
+  padding: 0 16px; /* Memberi jarak aman kanan-kiri bawaan */
+}
+
+/* 1. Large Tablets & Small Laptops (<= 1100px) */
 @media (max-width: 1100px) {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 50px;
   }
 
+  .upload-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
   .upload-card {
     margin: 0 auto;
+    max-width: 480px;
   }
 
   .statistics .container,
   .feature-grid,
-  .workflow-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
+  .workflow-grid,
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
+/* 2. Tablets & Mobile Portrait (<= 768px) */
 @media (max-width: 768px) {
   section {
-    padding: 70px 0;
+    padding: 60px 0;
   }
 
   .hero {
-    padding-top: 120px;
+    padding-top: 110px;
+    padding-bottom: 40px;
   }
 
-  .hero-title {
-    font-size: 2.7rem;
+  /* Perbaikan Posisi Centering Hero & Form */
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
-  .hero-description {
-    font-size: 0.95rem;
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
-  .nav-links {
-    display: none; /* Disembunyikan saat layar mobile */
-  }
-
-  .mobile-menu {
-    display: block;
-  }
-
-  .statistics .container,
-  .feature-grid,
-  .workflow-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 36px;
-  }
-
-  .mini-stats {
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  .format-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .section-heading h2 {
-    font-size: 2rem;
-  }
-
-  .cta-box {
-    padding: 50px 24px;
-  }
-
-  .cta-box h2 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 500px) {
-  .hero-title {
-    font-size: 2.2rem;
+  /* Perbaikan Form Upload Agar Presisi di Tengah */
+  .upload-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
   }
 
   .upload-card {
-    padding: 20px;
+    width: 100%;
+    max-width: 100%; /* Agar mengikuti kontainer parent */
+    padding: 24px 20px;
+    margin: 0 auto;
+    border-radius: 20px;
   }
 
   .upload-area {
-    min-height: 160px;
+    min-height: 180px;
+    padding: 20px 15px;
   }
 
-  .btn-primary,
-  .btn-secondary {
-    width: 100%;
+  /* Perbaikan Navbar Mobile */
+  .nav-container {
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+
+  .mobile-menu {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Single Column Grids */
+  .statistics .container,
+  .feature-grid,
+  .workflow-grid,
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* Perbaikan Footer Supaya Tidak Mepet Bawah */
+  footer {
+    padding-top: 60px;
+    padding-bottom: 20px; /* Jarak aman di bagian paling bawah HP */
+  }
+
+  .footer-grid {
+    padding-bottom: 40px;
+    text-align: center; /* Merapikan teks footer ke tengah di HP */
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-column {
+    align-items: center;
+  }
+
+  .footer-bottom {
+    padding: 20px 16px 30px;
+  }
+}
+
+/* Small Mobile Devices / iPhone (<= 500px) */
+@media (max-width: 500px) {
+  .hero {
+    padding-top: 95px;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+    line-height: 1.25;
+  }
+
+  .hero-description {
+    font-size: 0.9rem;
   }
 
   .hero-buttons {
     flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    padding: 0 10px;
   }
 
+  .btn-primary,
+  .btn-secondary,
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mini Stats */
   .mini-stats {
-    flex-direction: column;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .mini-stats h2 {
+    font-size: 1.2rem;
+  }
+
+  .mini-stats p {
+    font-size: 0.75rem;
+  }
+
+  /* Kartu Upload iPhone Precision */
+  .upload-card {
+    padding: 18px 14px;
+    border-radius: 20px;
+  }
+
+  .upload-area {
+    min-height: 160px;
+    padding: 15px 10px;
+  }
+
+  .upload-header h3 {
+    font-size: 1.2rem;
   }
 
   .format-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
-  .cta-button {
-    width: 100%;
-    justify-content: center;
+  .format-grid span {
+    height: 40px;
+    font-size: 0.85rem;
   }
 }
