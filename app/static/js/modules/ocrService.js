@@ -1,9 +1,13 @@
 export function initOcrService() {
+  // Element DOM
   const convertBtn = document.getElementById("convertBtn") || document.querySelector(".convert-btn");
   const fileInput = document.getElementById("imageInput");
   const progressWrapper = document.getElementById("progressWrapper");
   const progressFill = document.getElementById("progressFill");
   const progressText = document.getElementById("progressText");
+
+  // Endpoint FastAPI Backend Engine
+  const FASTAPI_URL = "http://127.0.0.1:8001/api/v1/ocr/process";
 
   if (convertBtn) {
     convertBtn.addEventListener("click", async (e) => {
@@ -17,14 +21,12 @@ export function initOcrService() {
         return;
       }
 
-      // 1. BUAT FORMDATA DI SINI (Sebelum dipakai fetch!)
+      // 1. Siapkan Payload FormData
       const formData = new FormData();
       formData.append("file", file);
       formData.append("format", selectedFormat);
 
-      // Ambil CSRF Token dari meta tag HTML
-      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute("content");
-
+      // UI Feedback: Disable button & tampilkan spinner
       convertBtn.disabled = true;
       const originalBtnText = convertBtn.innerHTML;
       convertBtn.innerHTML = `<i class="ri-loader-4-line ri-spin"></i> Memproses & Mengunduh...`;
@@ -33,6 +35,7 @@ export function initOcrService() {
       if (progressFill) progressFill.style.width = "0%";
       if (progressText) progressText.textContent = "0%";
 
+      // Simulasi Progress Bar
       let progress = 0;
       const progressInterval = setInterval(() => {
         if (progress < 88) {
@@ -43,27 +46,33 @@ export function initOcrService() {
       }, 180);
 
       try {
-        const response = await fetch("/api/process-ocr/", {
+        // 2. Hit ke FastAPI Backend (Bukan Django!)
+        const response = await fetch(FASTAPI_URL, {
           method: "POST",
-          headers: {
-            "X-CSRFToken": csrfToken, // Penting untuk Django POST request
-          },
-          body: formData, // <-- formData dipakai di sini
+          // Catatan: Header X-CSRFToken tidak diperlukan untuk FastAPI
+          body: formData,
         });
 
         if (!response.ok) {
-          throw new Error("Gagal memproses file di server.");
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.detail || "Gagal memproses file di server FastAPI.");
         }
 
+        // Progress Selesai
         clearInterval(progressInterval);
         if (progressFill) progressFill.style.width = "100%";
         if (progressText) progressText.textContent = "100%";
 
-        const blob = await response.blob();
+        // 3. Terima Response JSON dari FastAPI
+        const data = await response.json();
+
+        // 4. Trigger Download Otomatis
+        // Memakai Blob dari data teks hasil ekstraksi
+        const blob = new Blob([data.text || data.extracted_text || ""], { type: "text/plain;charset=utf-8" });
         const downloadUrl = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = downloadUrl;
-        a.download = `hasil_ocr.${selectedFormat}`;
+        a.download = `hasil_ocr_${Date.now()}.${selectedFormat}`;
         document.body.appendChild(a);
 
         a.click();
@@ -71,9 +80,10 @@ export function initOcrService() {
         window.URL.revokeObjectURL(downloadUrl);
       } catch (error) {
         clearInterval(progressInterval);
-        console.error("Download error:", error);
-        alert("Terjadi kesalahan saat memproses atau mengunduh file.");
+        console.error("Error OCR Service:", error);
+        alert(`Terjadi kesalahan: ${error.message}`);
       } finally {
+        // Reset UI State
         setTimeout(() => {
           convertBtn.disabled = false;
           convertBtn.innerHTML = originalBtnText;

@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
   }
 
-  // Initializing All Modules
-  initNavbar();
-  initUploadHandler();
-  initFAQ();
-  initCounter();
-  initAnimations();
-  initOcrService();
+  // Processing Module
+  initUploadHandler(); // Jalankan modul upload (preview image & drag-drop)
+  initOcrService(); // Jalankan modul OCR (hit ke FastAPI & download)
+  initNavbar(); // Navbar init
+  initFAQ(); //  FAQ Section
+  initCounter(); // Counter Animation
+  initAnimations(); // All unit of animation
 });
