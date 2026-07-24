@@ -19,8 +19,9 @@
   </head>
   <body>
     {% include 'components/_background.html' %} {% include 'components/_navbar.html' %}
-
+    
     <main>
+      {% include 'components/_alert.html' %}
       {% block content %}
       {% endblock %}
     </main>
