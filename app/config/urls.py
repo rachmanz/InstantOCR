@@ -20,7 +20,7 @@ from project import views
 
 # Routing 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls), # Admin, kalo mau ada admin
     path('', views.index, name="home"),
-    path('api/process-ocr/', views.process_ocr, name="process_ocr")
+    # path('api/process-ocr/', views.process_ocr, name="process_ocr")
 ]

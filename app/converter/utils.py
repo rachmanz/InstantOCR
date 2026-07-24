@@ -1,29 +1,48 @@
-import easyocr
-import numpy as np
-from PIL import Image
+import json
+import csv
+import io
+from docx import Document
+import pandas as pd
 
-# Inisalisasi Reader EasyOCR
-reader = easyocr.Reader(['en', 'id'], gpu=False)
+class FormatConverter:
+    @staticmethod
+    def to_txt(text: str) -> bytes:
+        return text.encode('utf-8')
 
-def extract_text_from_image(image_file):
-    try:
-        # Buka file yang diupload
-        img = Image.open(image_file)
+    @staticmethod
+    def to_json(text: str) -> bytes:
+        data = {"status": "success", "extracted_text": text}
+        return json.dumps(data, indent=2).encode('utf-8')
 
-        # Ketika warna RGB / Transparan / Grey
-        if img.mode != 'RGB':
-            img = img.convert('RGB')
+    @staticmethod
+    def to_docx(text: str) -> bytes:
+        doc = Document()
+        doc.add_heading('Instant-OCR Result', level=1)
+        doc.add_paragraph(text)
+        
+        buffer = io.BytesIO()
+        doc.save(buffer)
+        return buffer.getvalue()
+
+    @staticmethod
+    def to_csv(text: str) -> bytes:
+        buffer = io.StringIO()
+        writer = csv.writer(buffer)
+        writer.writerow(["Line", "Content"])
+        
+        for idx, line in enumerate(text.splitlines(), start=1):
+            if line.strip():
+                writer.writerow([idx, line.strip()])
+                
+        return buffer.getvalue().encode('utf-8')
+
+    @staticmethod
+    def to_xlsx(text: str) -> bytes:
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        df = pd.DataFrame({"Extracted Text": lines})
+        
+        buffer = io.BytesIO()
+        with pd.ExcelWriter(buffer, engine='openpyxl') as writer:
+            df.to_excel(writer, index=False, sheet_name="OCR Output")
             
-        # Ubah file gambar -> np.array (agar bisa terlihat polanya oleh komputer)
-        img_np = np.array(img)
-        # Machine dari reader EasyOCR digunakan untuk membaca gambar yang sudah dalam bentuk np.array
-        results = reader.readtext(img_np, detail=0)
-        # Semua hasil dari text yang di extract akan digabungkan perbaris
-        extracted_text = "\n".join(results)
-        # Kalau ini sih rapihin aja ya, buat hilangin spasi yang berlebih
-        return extracted_text.strip()
-
-    # Jika Error akan mengeluarkan error ini
-    except Exception as e:
-        print(f"Error Easy OCR: {e}")
-        return None
+        return buffer.getvalue()
