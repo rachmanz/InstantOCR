@@ -35,11 +35,11 @@ _InstantOCR is a powerful web-based application designed to extract text from im
 
 ## 🛠️ Tech Stack
 
-- **Backend:** Python 3.10+, Django Framework, FastAPI
-- **Frontend:** HTML5, CSS3 (Modern Glassmorphism & Flex/Grid), Vanilla JavaScript (ES6+)
+- **Backend:** Python 3.10+, FastAPI (API handler)
+- **Frontend:** HTML5 (Django HTML), CSS3 (Modern Glassmorphism & Flex/Grid), Vanilla JavaScript (ES6+)
 - **Animation & FX:** GSAP (GreenSock), ScrollTrigger, Remix Icons
 - **OCR Engine:** EasyOCR (Django Integration) & HuggingFace Model (**Premium**)
 
 ---
 
-**`Note`** : Application is under development
+**`Developed by`**: RahmanDev
