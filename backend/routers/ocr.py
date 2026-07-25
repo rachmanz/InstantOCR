@@ -7,11 +7,11 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Depends
 from sqlalchemy.orm import Session
 
 # API Config & Services
-from api.config import settings
-from api.database import get_db
-from api.models import OCRDocument
-from api.services.hf_service import query_huggingface_ocr
-from api.services.ocr_service import process_easyocr
+from backend.config import settings
+from backend.database import get_db
+from backend.models import OCRDocument
+from backend.services.hf_service import query_huggingface_ocr
+from backend.services.ocr_service import process_easyocr
 
 # Log 
 logger = logging.getLogger(__name__)

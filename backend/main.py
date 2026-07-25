@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers import ocr
-from api.database import engine, Base
+from backend.routers import ocr
+from backend.database import engine, Base
 
 # Lakukan pembuatan database secara otomatis ketika tidak ditemukan databasenya
 Base.metadata.create_all(bind=engine)

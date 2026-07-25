@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime
 from datetime import datetime
-from api.database import Base
+from backend.database import Base
 
 # ORM Structured Skeleton for table
 class OCRDocument(Base):
